@@ -1,47 +1,53 @@
-To fix the clustering and ensure your images appear correctly, you need to use Markdown syntax. This includes using specific symbols like # for headings, triple backticks (```) for code blocks, and proper spacing.
 
-Below is the copy-ready code. Copy everything from the box below and paste it into your README.md file on GitHub.
 
-Brazilian E-Commerce Public Dataset Analysis
-SQL Business Intelligence Project (Handling 1M+ Records)
-📌 Project Overview
-This project features a comprehensive end-to-end analysis of the Brazilian E-Commerce Public Dataset using PostgreSQL. The primary focus was transforming raw, large-scale data into high-level business intelligence regarding revenue, customer lifecycle, and complex logistics.
+# Brazilian E-Commerce Public Dataset Analysis
 
-📂 Data Scale & Source
-Data Volume: Analyzed a production-scale database with 1,000,000+ rows.
+### SQL Business Intelligence Project (Handling 1M+ Records)
 
-Source: Kaggle - Olist Brazilian E-Commerce Dataset
+## 📌 Project Overview
 
-Technical Note: Raw CSV files are not hosted here due to GitHub's 25MB limit. All insights were derived using optimized SQL queries in pgAdmin 4.
+This project features a comprehensive end-to-end analysis of the **Brazilian E-Commerce Public Dataset** using **PostgreSQL**. The primary focus was transforming raw, large-scale data into high-level business intelligence regarding revenue, customer lifecycle, and complex logistics.
 
-📊 1. Financial Performance (The North Star)
+## 📂 Data Scale & Source
+
+* **Data Volume:** Analyzed a production-scale database with **1,000,000+ rows**.
+* **Source:** [Kaggle - Olist Brazilian E-Commerce Dataset](https://www.kaggle.com/datasets/olistbr/brazilian-ecommerce)
+* **Technical Note:** Raw CSV files are not hosted here due to GitHub's 25MB limit.
+
+---
+
+## 📊 1. Financial Performance (The North Star)
+
 Understanding the platform's scale by calculating the total revenue generated.
 
-SQL
+```sql
 SELECT to_char(sum(payment_value) / 1000000.0, 'FM999,999.00')
 as "Total Revenue (in Millions)" 
 FROM order_payments;
-Revenue by Product Category
-Breaking down sales to identify which categories contribute most to the platform's growth.
 
-SQL
+```
+
+### Revenue by Product Category
+
+```sql
 SELECT 
     r.product_category_name_english AS "Product Category",
-    to_char(
-        (SUM(q.price + q.freight_value) / 1000), 
-        'FM9,999,999.0'
-    ) AS "Total Revenue (in K)"
+    to_char((SUM(q.price + q.freight_value) / 1000), 'FM9,999,999.0') AS "Total Revenue (in K)"
 FROM products p
-INNER JOIN order_items q 
-    ON p.product_id = q.product_id
-INNER JOIN product_category_name_translation r
-    ON r.product_category_name = p.product_category_name
+INNER JOIN order_items q ON p.product_id = q.product_id
+INNER JOIN product_category_name_translation r ON r.product_category_name = p.product_category_name
 GROUP BY 1 
 ORDER BY SUM(q.price + q.freight_value) DESC;
-💳 2. Payment & Customer Insights
+
+```
+
+---
+
+## 💳 2. Payment & Customer Insights
+
 Analyzing transaction types and identifying high-value "Power Users."
 
-SQL
+```sql
 -- Payment Method Distribution
 SELECT 
     payment_type AS "Payment Type", 
@@ -59,10 +65,16 @@ JOIN orders b ON a.customer_id = b.customer_id
 JOIN order_payments c ON b.order_id = c.order_id
 ORDER BY c.payment_value DESC
 LIMIT 10;
-🚚 3. Logistics & Regional Operations
+
+```
+
+---
+
+## 🚚 3. Logistics & Regional Operations
+
 Grouping 27 states into 5 macro-regions to visualize geographical order distribution.
 
-SQL
+```sql
 -- Regional Order Volume Mapping
 SELECT 
     CASE 
@@ -78,10 +90,16 @@ FROM customers a
 JOIN orders b ON a.customer_id = b.customer_id
 GROUP BY 1
 ORDER BY 2 DESC;
-📦 4. Delivery Efficiency vs. Product Weight
+
+```
+
+---
+
+## 📦 4. Delivery Efficiency vs. Product Weight
+
 Investigating how physical product attributes impact shipping speed across the country.
 
-SQL
+```sql
 SELECT DISTINCT ROUND(a.product_weight_g / 1000) AS "Weight (kg)",
 TO_CHAR(AVG(b.order_delivered_customer_date - b.order_purchase_timestamp), 
 'DD "Day" HH24:MI') AS "Delivery Time"
@@ -91,10 +109,16 @@ INNER JOIN orders b ON b.order_id = c.order_id
 WHERE a.product_weight_g IS NOT NULL
 GROUP BY 1
 ORDER BY 1 DESC;
-⭐ 5. Customer Satisfaction & Feedback
-Monitoring the quality of the customer experience through ratings and response agility.
 
-SQL
+```
+
+---
+
+## ⭐ 5. Customer Satisfaction & Feedback
+
+Monitoring quality through ratings and response agility.
+
+```sql
 -- Avg Order Rating
 SELECT round(avg (review_score ::INT),2) as "Avg Order Rating" FROM order_reviews;
 
@@ -105,18 +129,22 @@ SELECT
         'DD "days" HH24:MI'
     ) AS "Avg. Review Time"
 FROM order_reviews;
-🛠️ Technical Skills Demonstrated
-Database Management: PostgreSQL / pgAdmin 4
 
-Data Aggregation: SUM, AVG, COUNT, ROUND
+```
 
-Complex Logic: CASE Statements, Data Type Casting (::INT)
+---
 
-Time Series: JUSTIFY_INTERVAL, Timestamp subtraction
+## 🛠️ Technical Skills Demonstrated
 
-Data Joining: Advanced INNER JOIN logic across multiple relational tables
+* **Database Management:** PostgreSQL / pgAdmin 4
+* **Aggregation:** `SUM`, `AVG`, `COUNT`, `ROUND`
+* **Logic:** `CASE` Statements, Data Type Casting (`::INT`)
+* **Joins:** Advanced `INNER JOIN` logic across multiple tables
 
-📬 Contact
-GitHub: aamirmailbox7
+---
 
-LinkedIn: https://www.linkedin.com/in/mohammad-amir-b93a26397/
+## 📬 Contact
+
+**GitHub:** [aamirmailbox7](https://www.google.com/search?q=https://github.com/aamirmailbox7)
+
+**LinkedIn:** https://www.linkedin.com/in/mohammad-amir-b93a26397/
