@@ -1,6 +1,4 @@
 
----
-
 # Brazilian E-Commerce Public Dataset Analysis
 
 ### SQL Business Intelligence Project (Handling 1M+ Records)
