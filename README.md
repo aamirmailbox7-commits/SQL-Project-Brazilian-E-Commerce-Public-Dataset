@@ -55,7 +55,21 @@ JOIN orders b ON a.customer_id = b.customer_id
 JOIN order_payments c ON b.order_id = c.order_id
 ORDER BY c.payment_value DESC
 LIMIT 10;
-🚚 3. Logistics & Regional Operations
+⭐ 3. Customer Satisfaction & Feedback
+Monitoring the quality of the customer experience through ratings and response agility.
+
+Average Order Rating
+SQL
+SELECT round(avg (review_score ::INT),2) as "Avg Order Rating" FROM order_reviews;
+Review Response Latency
+SQL
+SELECT 
+    TO_CHAR(
+        JUSTIFY_INTERVAL(AVG(review_answer_timestamp - review_creation_date)), 
+        'DD "days" HH24:MI'
+    ) AS "Avg. Review Time"
+FROM order_reviews;
+🚚 4. Logistics & Regional Operations
 Deep-diving into the geographical distribution of orders and shipping efficiency.
 
 Regional Order Volume
@@ -87,20 +101,6 @@ INNER JOIN orders b ON b.order_id = c.order_id
 WHERE a.product_weight_g IS NOT NULL
 GROUP BY 1
 ORDER BY 1 DESC;
-⭐ 4. Customer Satisfaction & Feedback
-Monitoring the quality of the customer experience through ratings and response agility.
-
-Average Order Rating
-SQL
-SELECT round(avg (review_score ::INT),2) as "Avg Order Rating" FROM order_reviews;
-Review Response Latency
-SQL
-SELECT 
-    TO_CHAR(
-        JUSTIFY_INTERVAL(AVG(review_answer_timestamp - review_creation_date)), 
-        'DD "days" HH24:MI'
-    ) AS "Avg. Review Time"
-FROM order_reviews;
 🛠️ Technical Skills Demonstrated
 Database Management: PostgreSQL / pgAdmin 4
 
@@ -113,5 +113,6 @@ Time Series: JUSTIFY_INTERVAL, Timestamp manipulation/subtraction
 Data Joining: Advanced INNER JOIN logic across multiple relational tables
 
 📬 Contact
+GitHub: aamirmailbox7
 
 LinkedIn: https://www.linkedin.com/in/mohammad-amir-b93a26397/
