@@ -59,7 +59,7 @@ GROUP BY payment_type
 ORDER BY "Total Transactions" DESC;
 
 ```
-
+Payment Method Distribution Visual Result
 ![Dashboard View 1](1.PNG)
 
 ---
@@ -132,6 +132,7 @@ ORDER BY 2 DESC;
 
 ```
 
+Regional Order Volume Visual Result
 ![Dashboard View 1](2.PNG)
 
 ---
@@ -153,6 +154,7 @@ ORDER BY 1 DESC;
 
 ```
 
+Delivery Time vs. Product Weight Visual Result
 ![Dashboard View 1](3.PNG)
 
 ---
