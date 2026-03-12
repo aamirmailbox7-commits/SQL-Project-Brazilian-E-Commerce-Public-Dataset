@@ -164,9 +164,7 @@ ORDER BY 1 DESC;
 
 ## 📬 Contact
 
-**GitHub:** [aamirmailbox7](https://www.google.com/search?q=https://github.com/aamirmailbox7)
-
-**LinkedIn:** [Your LinkedIn Profile Link]
+**LinkedIn:** https://www.linkedin.com/in/mohammad-amir-b93a26397/
 
 ---
 
