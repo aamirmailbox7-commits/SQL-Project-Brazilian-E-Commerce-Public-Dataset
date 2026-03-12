@@ -1,7 +1,3 @@
-This `README.md` is structured to showcase your ability to move from high-level business metrics to granular operational details. It uses clean Markdown formatting and includes the code blocks exactly as you requested.
-
----
-
 # Brazilian E-Commerce Public Dataset Analysis
 
 ### SQL Business Intelligence Project
@@ -165,7 +161,3 @@ ORDER BY 1 DESC;
 ## 📬 Contact
 
 **LinkedIn:** https://www.linkedin.com/in/mohammad-amir-b93a26397/
-
----
-
-**Would you like me to help you draft the final LinkedIn post now that your GitHub structure is ready?**
