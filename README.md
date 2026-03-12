@@ -1,14 +1,7 @@
 Brazilian E-Commerce Public Dataset Analysis
-SQL Business Intelligence Project (Handling 1M+ Records)
+SQL Business Intelligence Project
 📌 Project Overview
-This project features a comprehensive end-to-end analysis of the Brazilian E-Commerce Public Dataset using PostgreSQL. The primary focus was transforming raw, large-scale data into high-level business intelligence regarding revenue, customer lifecycle, and complex logistics.
-
-📂 Data Scale & Source
-Data Volume: This analysis was performed on a production-scale relational database containing 1,000,000+ rows of transactional data.
-
-Source: Kaggle - Olist Brazilian E-Commerce Dataset
-
-Technical Note: Due to the large file size (exceeding GitHub's 25MB limit), raw CSV files are not hosted in this repository. All insights were derived using optimized SQL queries within a PostgreSQL environment.
+This project involves a comprehensive analysis of the Brazilian E-Commerce Public Dataset using PostgreSQL. The objective was to extract meaningful business insights regarding revenue performance, customer behavior, and logistical efficiency across various Brazilian regions.
 
 📊 1. Financial Performance (The North Star)
 Understanding the total scale of the marketplace by calculating the total revenue generated.
@@ -35,7 +28,7 @@ INNER JOIN product_category_name_translation r
 GROUP BY 1 
 ORDER BY SUM(q.price + q.freight_value) DESC;
 💳 2. Payment & Customer Insights
-Analyzing transaction types and identifying high-value "Power Users."
+Analyzing how customers interact with the platform and identifying top-tier contributors.
 
 Payment Method Distribution
 SQL
@@ -46,6 +39,8 @@ FROM order_payments
 GROUP BY payment_type
 ORDER BY "Total Transactions" DESC;
 Top 10 Customers by Purchase Value
+Identifying "Power Users" by their total spending habits.
+
 SQL
 SELECT 
     a.customer_id as "Customer ID",
@@ -62,6 +57,8 @@ Average Order Rating
 SQL
 SELECT round(avg (review_score ::INT),2) as "Avg Order Rating" FROM order_reviews;
 Review Response Latency
+Measuring how long it takes for feedback to be processed.
+
 SQL
 SELECT 
     TO_CHAR(
@@ -70,10 +67,10 @@ SELECT
     ) AS "Avg. Review Time"
 FROM order_reviews;
 🚚 4. Logistics & Regional Operations
-Deep-diving into the geographical distribution of orders and shipping efficiency.
+Deep-diving into the geographical distribution of orders and the impact of product weight on delivery speed.
 
 Regional Order Volume
-Using custom mapping to group 27 individual states into 5 strategic macro-regions.
+Using custom mapping to group 27 states into 5 strategic macro-regions.
 
 SQL
 SELECT 
@@ -91,6 +88,8 @@ JOIN orders b ON a.customer_id = b.customer_id
 GROUP BY 1
 ORDER BY 2 DESC;
 Delivery Time vs. Product Weight
+Investigating if shipping logistics are affected by the physical weight of the products.
+
 SQL
 SELECT DISTINCT ROUND(a.product_weight_g / 1000) AS "Weight (kg)",
 TO_CHAR(AVG(b.order_delivered_customer_date - b.order_purchase_timestamp), 
@@ -104,13 +103,13 @@ ORDER BY 1 DESC;
 🛠️ Technical Skills Demonstrated
 Database Management: PostgreSQL / pgAdmin 4
 
-Data Aggregation: SUM, AVG, COUNT, ROUND
+Data Aggregation: SUM, AVG, COUNT
 
 Complex Logic: CASE Statements, Data Type Casting (::INT)
 
-Time Series: JUSTIFY_INTERVAL, Timestamp manipulation/subtraction
+Time Series: JUSTIFY_INTERVAL, Timestamp subtraction
 
-Data Joining: Advanced INNER JOIN logic across multiple relational tables
+Data Joining: INNER JOIN, LEFT JOIN across multiple relational tables
 
 📬 Contact
 GitHub: aamirmailbox7
