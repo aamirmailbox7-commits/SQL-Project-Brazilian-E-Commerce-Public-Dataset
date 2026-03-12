@@ -1,4 +1,5 @@
 
+---
 
 # Brazilian E-Commerce Public Dataset Analysis
 
@@ -6,7 +7,7 @@
 
 ## 📌 Project Overview
 
-This project features a comprehensive end-to-end analysis of the **Brazilian E-Commerce Public Dataset** using **PostgreSQL**. The primary focus was transforming raw, large-scale data into high-level business intelligence regarding revenue, customer lifecycle, and complex logistics.
+This project features a comprehensive end-to-end analysis of the **Brazilian E-Commerce Public Dataset** using **PostgreSQL**. The primary focus was transforming raw, large-scale data into high-level business intelligence.
 
 ## 📂 Data Scale & Source
 
@@ -16,9 +17,9 @@ This project features a comprehensive end-to-end analysis of the **Brazilian E-C
 
 ---
 
-## 📊 1. Financial Performance (The North Star)
+## 📊 1. Total Platform Revenue
 
-Understanding the platform's scale by calculating the total revenue generated.
+Calculating the "North Star" metric to understand the total financial scale of the marketplace.
 
 ```sql
 SELECT to_char(sum(payment_value) / 1000000.0, 'FM999,999.00')
@@ -27,7 +28,11 @@ FROM order_payments;
 
 ```
 
-### Revenue by Product Category
+---
+
+## 🛍️ 2. Revenue by Product Category
+
+Identifying which product categories are the primary drivers of sales volume.
 
 ```sql
 SELECT 
@@ -43,12 +48,11 @@ ORDER BY SUM(q.price + q.freight_value) DESC;
 
 ---
 
-## 💳 2. Payment & Customer Insights
+## 💳 3. Payment Method Distribution
 
-Analyzing transaction types and identifying high-value "Power Users."
+Analyzing how customers prefer to pay to optimize checkout financial flows.
 
 ```sql
--- Payment Method Distribution
 SELECT 
     payment_type AS "Payment Type", 
     count(payment_type) AS "Total Transactions"
@@ -56,7 +60,15 @@ FROM order_payments
 GROUP BY payment_type
 ORDER BY "Total Transactions" DESC;
 
--- Top 10 Customers by Purchase Value
+```
+
+---
+
+## 🏆 4. Top 10 High-Value Customers
+
+Isolating "Power Users" or "Whale" customers based on their total historical spend.
+
+```sql
 SELECT 
     a.customer_id as "Customer ID",
     to_char(c.payment_value, 'FM99,999.0') as "Total Purchase Value (R$)"
@@ -70,12 +82,39 @@ LIMIT 10;
 
 ---
 
-## 🚚 3. Logistics & Regional Operations
+## ⭐ 5. Average Order Rating
 
-Grouping 27 states into 5 macro-regions to visualize geographical order distribution.
+Measuring overall customer sentiment and platform health through review scores.
 
 ```sql
--- Regional Order Volume Mapping
+SELECT round(avg (review_score ::INT),2) as "Avg Order Rating" 
+FROM order_reviews;
+
+```
+
+---
+
+## ⏱️ 6. Review Response Latency
+
+Calculating the time gap between a customer leaving a review and the system processing it.
+
+```sql
+SELECT 
+    TO_CHAR(
+        JUSTIFY_INTERVAL(AVG(review_answer_timestamp - review_creation_date)), 
+        'DD "days" HH24:MI'
+    ) AS "Avg. Review Time"
+FROM order_reviews;
+
+```
+
+---
+
+## 🚚 7. Regional Order Volume
+
+Grouping 27 Brazilian states into 5 macro-regions to visualize geographical density.
+
+```sql
 SELECT 
     CASE 
         WHEN a.customer_state IN ('SP', 'RJ', 'MG', 'ES') THEN 'Southeast'
@@ -95,9 +134,9 @@ ORDER BY 2 DESC;
 
 ---
 
-## 📦 4. Delivery Efficiency vs. Product Weight
+## 📦 8. Delivery Time vs. Product Weight
 
-Investigating how physical product attributes impact shipping speed across the country.
+Investigating if shipping logistics are significantly delayed by the physical weight of items.
 
 ```sql
 SELECT DISTINCT ROUND(a.product_weight_g / 1000) AS "Weight (kg)",
@@ -109,26 +148,6 @@ INNER JOIN orders b ON b.order_id = c.order_id
 WHERE a.product_weight_g IS NOT NULL
 GROUP BY 1
 ORDER BY 1 DESC;
-
-```
-
----
-
-## ⭐ 5. Customer Satisfaction & Feedback
-
-Monitoring quality through ratings and response agility.
-
-```sql
--- Avg Order Rating
-SELECT round(avg (review_score ::INT),2) as "Avg Order Rating" FROM order_reviews;
-
--- Review Response Latency
-SELECT 
-    TO_CHAR(
-        JUSTIFY_INTERVAL(AVG(review_answer_timestamp - review_creation_date)), 
-        'DD "days" HH24:MI'
-    ) AS "Avg. Review Time"
-FROM order_reviews;
 
 ```
 
