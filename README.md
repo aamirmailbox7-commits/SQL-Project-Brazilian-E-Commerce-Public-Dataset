@@ -4,14 +4,14 @@ SQL Business Intelligence Project (Handling 1M+ Records)
 This project features a comprehensive end-to-end analysis of the Brazilian E-Commerce Public Dataset using PostgreSQL. The primary focus was transforming raw, large-scale data into high-level business intelligence regarding revenue, customer lifecycle, and complex logistics.
 
 📂 Data Scale & Source
-Data Volume: This analysis was performed on a production-scale relational database containing 1,000,000+ rows of transactional data.
+Data Volume: Analyzed a production-scale database with 1,000,000+ rows.
 
 Source: Kaggle - Olist Brazilian E-Commerce Dataset
 
-Technical Note: Due to the large file size (exceeding GitHub's 25MB limit), raw CSV files are not hosted in this repository. All insights were derived using optimized SQL queries within a PostgreSQL environment.
+Technical Note: Raw CSV files are not hosted here due to GitHub's 25MB limit. All insights were derived using optimized SQL queries in pgAdmin 4.
 
 📊 1. Financial Performance (The North Star)
-Understanding the total scale of the marketplace by calculating the total revenue generated.
+Understanding the platform's scale by calculating the total revenue generated.
 
 SQL
 SELECT to_char(sum(payment_value) / 1000000.0, 'FM999,999.00')
@@ -39,7 +39,7 @@ JOIN order_payments c ON b.order_id = c.order_id
 ORDER BY c.payment_value DESC
 LIMIT 10;
 🚚 3. Logistics & Regional Operations
-Deep-diving into the geographical distribution of orders across Brazil.
+Grouping 27 states into 5 macro-regions to visualize geographical order distribution.
 
 SQL
 -- Regional Order Volume Mapping
@@ -58,7 +58,7 @@ JOIN orders b ON a.customer_id = b.customer_id
 GROUP BY 1
 ORDER BY 2 DESC;
 📦 4. Delivery Efficiency vs. Product Weight
-Investigating how physical product attributes impact shipping speed and customer wait times.
+Investigating how physical product attributes impact shipping speed across the country.
 
 SQL
 SELECT DISTINCT ROUND(a.product_weight_g / 1000) AS "Weight (kg)",
@@ -91,9 +91,9 @@ Data Aggregation: SUM, AVG, COUNT, ROUND
 
 Complex Logic: CASE Statements, Data Type Casting (::INT)
 
-Time Series: JUSTIFY_INTERVAL, Timestamp manipulation/subtraction
+Time Series: JUSTIFY_INTERVAL, Timestamp subtraction
 
-Data Joining: Advanced INNER JOIN logic across multiple relational tables
+Data Joining: Advanced INNER JOIN logic across multiple relational tablesoining: Advanced INNER JOIN logic across multiple relational tables
 ## 
 
 📬 Contact
