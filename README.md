@@ -60,6 +60,8 @@ ORDER BY "Total Transactions" DESC;
 
 ```
 
+![Dashboard View 1](1.PNG)
+
 ---
 
 ## 🏆 4. Top 10 High-Value Customers
@@ -130,6 +132,8 @@ ORDER BY 2 DESC;
 
 ```
 
+![Dashboard View 1](2.PNG)
+
 ---
 
 ## 📦 8. Delivery Time vs. Product Weight
@@ -148,6 +152,8 @@ GROUP BY 1
 ORDER BY 1 DESC;
 
 ```
+
+![Dashboard View 1](3.PNG)
 
 ---
 
