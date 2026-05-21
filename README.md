@@ -170,6 +170,4 @@ Delivery Time vs. Product Weight Visual Result
 
 ## 📬 Contact
 
-**GitHub:** [aamirmailbox7](https://www.google.com/search?q=https://github.com/aamirmailbox7)
-
 **LinkedIn:** https://www.linkedin.com/in/mohammad-amir-b93a26397/
